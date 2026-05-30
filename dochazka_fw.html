@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Docházka">
+<meta name="theme-color" content="#C8A450">
+<title>Docházka</title>
+
+<link rel="apple-touch-icon" href="#" id="apple-icon">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  --gold: #9A7010;
+  --gold-bg: #FDF0C0;
+  --gold-border: #D4A820;
+  --gold-text: #6B4D08;
+  --teal: #006B78;
+  --teal-bg: #C8EDEF;
+  --teal-border: #4DBFCA;
+  --teal-text: #004450;
+  --black: #1A1A1A;
+  --red: #B83030;
+  --bg: #F7F6F3;
+  --card: #FFFFFF;
+  --border: #E0DDD8;
+  --border2: #C8C5BF;
+  --txt: #1A1A1A;
+  --txt2: #6B6B6B;
+  --txt3: #9A9A9A;
+  --r: 14px;
+  --rs: 10px;
+  --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'DM Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 0 2rem;
+}
+
+.topbar {
+  background: var(--gold-border);
+  padding: 14px 20px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar svg { flex-shrink: 0; }
+.topbar .app-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1A1A1A;
+  letter-spacing: -0.01em;
+}
+
+.main { padding: 1.25rem 1rem 1rem; }
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.header .wd {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--txt3);
+  margin-bottom: 3px;
+}
+.header .ds {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--txt);
+}
+
+.slabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--txt3);
+  margin-bottom: 8px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.time-row { display: flex; gap: 8px; }
+
+.tbtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 14px 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--rs);
+  background: var(--bg);
+  cursor: pointer;
+  transition: all .15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.tbtn:active { transform: scale(.96); }
+.tbtn.set { background: var(--gold-bg); border: 2px solid var(--gold-border); }
+.tbtn .ticon {
+  font-size: 22px;
+  color: var(--txt3);
+  line-height: 1;
+}
+.tbtn.set .ticon { color: var(--gold); }
+.tbtn .tl {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--txt3);
+}
+.tbtn.set .tl { color: var(--gold-text); }
+.tbtn .tv {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--txt);
+  min-height: 24px;
+}
+.tbtn.set .tv { color: var(--gold-text); }
+.tbtn .th {
+  font-size: 10px;
+  color: var(--txt3);
+  min-height: 14px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.tbtn.set:active .th { opacity: 1; }
+
+.dur-row {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dur-lbl { font-size: 12px; color: var(--txt2); }
+.dur-v { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--teal); }
+
+.loc-row { display: flex; gap: 8px; }
+
+.lbtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 14px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--rs);
+  background: var(--bg);
+  cursor: pointer;
+  transition: all .15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.lbtn:active { transform: scale(.96); }
+.lbtn .licon { font-size: 22px; color: var(--txt3); line-height: 1; }
+.lbtn .ll { font-size: 13px; font-weight: 500; color: var(--txt2); }
+.lbtn.sel { background: var(--teal-bg); border: 2px solid var(--teal-border); }
+.lbtn.sel .licon { color: var(--teal); }
+.lbtn.sel .ll { color: var(--teal-text); font-weight: 600; }
+
+.btn-row { display: flex; gap: 8px; margin-bottom: 1.25rem; }
+
+.save-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: var(--rs);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: var(--font);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.save-btn:disabled {
+  background: var(--bg);
+  color: var(--txt3);
+  border: 1px solid var(--border);
+  cursor: not-allowed;
+}
+.save-btn:not(:disabled):active { transform: scale(.97); filter: brightness(.95); }
+.save-arr { background: var(--gold-bg); color: var(--gold-text); border: 2px solid var(--gold-border); }
+.save-full { background: var(--teal-bg); color: var(--teal-text); border: 2px solid var(--teal-border); }
+
+.hist-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.clear-btn {
+  font-size: 12px;
+  color: var(--txt3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: var(--font);
+}
+.clear-btn:active { color: var(--red); }
+
+.entry {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--rs);
+  margin-bottom: 6px;
+  overflow: hidden;
+  transition: border-color .15s;
+}
+.entry.editing { border-color: var(--teal-border); }
+.entry.pending { border-color: var(--gold-border); }
+
+.erow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 12px;
+}
+.edate { font-size: 11px; color: var(--txt3); width: 58px; flex-shrink: 0; line-height: 1.4; }
+.etimes { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--txt); flex: 1; }
+.edur { font-size: 11px; color: var(--txt3); margin-right: 2px; white-space: nowrap; }
+
+.eloc-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  letter-spacing: .02em;
+}
+.eloc-badge.t { background: var(--teal-bg); color: var(--teal-text); }
+.eloc-badge.p { background: var(--gold-bg); color: var(--gold-text); }
+
+.eacts { display: flex; gap: 2px; }
+.eacts button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--txt3);
+  font-size: 18px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  font-family: var(--font);
+}
+.eacts button:active { background: var(--bg); }
+.eacts .edit-active { color: var(--teal); background: var(--teal-bg); }
+.eacts .del:active { color: var(--red); }
+
+.pending-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--gold-bg);
+  border-top: 1px solid var(--gold-border);
+}
+.pending-banner .pb-icon { font-size: 15px; color: var(--gold); flex-shrink: 0; }
+.pending-banner span { font-size: 12px; color: var(--gold-text); flex: 1; }
+.pending-banner button {
+  background: var(--gold-border);
+  color: var(--gold-text);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+  white-space: nowrap;
+}
+
+.epanel {
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--teal-border);
+  background: var(--teal-bg);
+}
+.epanel .er {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.epanel label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--teal-text);
+  width: 58px;
+  flex-shrink: 0;
+}
+.epanel input[type=time] {
+  flex: 1;
+  font-family: var(--mono);
+  font-size: 14px;
+  padding: 6px 10px;
+  border: 1px solid var(--teal-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--txt);
+  height: 36px;
+}
+.eloc-row { display: flex; gap: 6px; margin-bottom: 10px; }
+.eloc-btn {
+  flex: 1;
+  padding: 8px 4px;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--txt2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: var(--font);
+}
+.eloc-btn.sel { background: var(--teal-bg); border: 2px solid var(--teal-border); color: var(--teal-text); font-weight: 600; }
+.ebtn-row { display: flex; gap: 6px; }
+.ebtn-row button {
+  flex: 1;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font);
+}
+.esave { background: var(--teal); color: #fff; border: none; }
+.ecancel { background: #fff; border: 1px solid var(--border2); color: var(--txt2); }
+
+.empty { text-align: center; padding: 2rem 1rem; color: var(--txt3); font-size: 13px; }
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  background: #1A1A1A;
+  color: #F8F8F8;
+  padding: 10px 20px;
+  border-radius: var(--rs);
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transition: all .25s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 100;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1A1A1A;
+    --card: #242424;
+    --border: #333;
+    --border2: #444;
+    --txt: #F0EDE8;
+    --txt2: #A0A0A0;
+    --txt3: #666;
+    --gold-bg: #2A2010;
+    --gold-border: #9A7010;
+    --gold-text: #E8C96A;
+    --teal-bg: #0A2025;
+    --teal-border: #006B78;
+    --teal-text: #7DCCD4;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <svg width="28" height="28" viewBox="0 0 28 28">
+      <rect width="28" height="28" rx="7" fill="#C8A450"/>
+      <circle cx="14" cy="14" r="9" fill="none" stroke="#1A1A1A" stroke-width="1.5"/>
+      <line x1="14" y1="14" x2="14" y2="7" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="14" y1="14" x2="19" y2="17" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="14" cy="14" r="1.5" fill="#1A1A1A"/>
+    </svg>
+    <span class="app-name">Docházka</span>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div class="wd" id="weekday"></div>
+      <div class="ds" id="datestr"></div>
+    </div>
+
+    <div class="slabel">Pracovní doba</div>
+    <div class="card">
+      <div class="time-row">
+        <button class="tbtn" id="btn-arrival" onclick="toggleTime('arrival')">
+          <span class="ticon">↪</span>
+          <span class="tl">Příchod</span>
+          <span class="tv" id="val-arrival">—</span>
+          <span class="th">klepni pro smazání</span>
+        </button>
+        <button class="tbtn" id="btn-departure" onclick="toggleTime('departure')">
+          <span class="ticon">↩</span>
+          <span class="tl">Odchod</span>
+          <span class="tv" id="val-departure">—</span>
+          <span class="th">klepni pro smazání</span>
+        </button>
+      </div>
+      <div class="dur-row" id="dur-row" style="display:none">
+        <span class="dur-lbl">Odpracováno</span>
+        <span class="dur-v" id="dur-val"></span>
+      </div>
+    </div>
+
+    <div class="slabel">Kde dnes pracuji</div>
+    <div class="card">
+      <div class="loc-row">
+        <button class="lbtn" id="loc-office" onclick="setLoc('office')">
+          <span class="licon">🏢</span>
+          <span class="ll">Kancelář</span>
+        </button>
+        <button class="lbtn" id="loc-home" onclick="setLoc('home')">
+          <span class="licon">🏠</span>
+          <span class="ll">Homeoffice</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="save-btn save-arr" id="save-arr-btn" onclick="saveArrivalOnly()" disabled>Uložit příchod</button>
+      <button class="save-btn save-full" id="save-btn" onclick="saveEntry()" disabled>Uložit záznam</button>
+    </div>
+
+    <div class="hist-head">
+      <span class="slabel" style="margin-bottom:0">Historie</span>
+      <button class="clear-btn" onclick="clearAll()">Vymazat vše</button>
+    </div>
+    <div id="hist"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DAYS=['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'];
+const MONTHS=['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
+let st={arrival:null,departure:null,location:null};
+let entries=[],editId=null;
+try{entries=JSON.parse(localStorage.getItem('dochazka_v1')||'[]');}catch(e){}
+
+function init(){
+  const n=new Date();
+  document.getElementById('weekday').textContent=DAYS[n.getDay()];
+  document.getElementById('datestr').textContent=n.getDate()+'. '+MONTHS[n.getMonth()]+' '+n.getFullYear();
+  render();
+}
+const fmt=d=>d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+function fmtDur(m){const h=Math.floor(m/60),r=m%60;return h+' h'+(r?' '+r+' min':'');}
+function calcMin(a,d){const[ah,am]=a.split(':').map(Number),[dh,dm]=d.split(':').map(Number);return(dh*60+dm)-(ah*60+am);}
+
+function toggleTime(t){
+  const btn=document.getElementById('btn-'+t);
+  if(btn.classList.contains('set')){
+    st[t]=null;btn.classList.remove('set');document.getElementById('val-'+t).textContent='—';
+  } else {
+    const n=new Date();st[t]=fmt(n);btn.classList.add('set');document.getElementById('val-'+t).textContent=fmt(n);
+  }
+  updDur();updSave();
+}
+
+function setLoc(l){
+  st.location=l;
+  document.getElementById('loc-office').className='lbtn'+(l==='office'?' sel':'');
+  document.getElementById('loc-home').className='lbtn'+(l==='home'?' sel':'');
+  updSave();
+}
+
+function updDur(){
+  const r=document.getElementById('dur-row');
+  if(st.arrival&&st.departure){
+    const d=calcMin(st.arrival,st.departure);
+    if(d>0){r.style.display='flex';document.getElementById('dur-val').textContent=fmtDur(d);return;}
+  }
+  r.style.display='none';
+}
+
+function updSave(){
+  document.getElementById('save-arr-btn').disabled=!(st.arrival&&st.location);
+  document.getElementById('save-btn').disabled=!(st.arrival&&st.departure&&st.location);
+}
+
+function saveArrivalOnly(){
+  if(!st.arrival||!st.location){toast('Vyplň příchod a místo.');return;}
+  const n=new Date();
+  entries.unshift({id:Date.now(),date:n.getDate()+'. '+MONTHS[n.getMonth()],day:DAYS[n.getDay()].slice(0,2),arrival:st.arrival,departure:null,dur:null,loc:st.location,pending:true});
+  persist();resetForm();render();toast('Příchod uložen ✓');
+}
+
+function saveEntry(){
+  const d=calcMin(st.arrival,st.departure);
+  if(d<=0){toast('Odchod musí být po příchodu!');return;}
+  const n=new Date();
+  entries.unshift({id:Date.now(),date:n.getDate()+'. '+MONTHS[n.getMonth()],day:DAYS[n.getDay()].slice(0,2),arrival:st.arrival,departure:st.departure,dur:fmtDur(d),loc:st.location,pending:false});
+  persist();resetForm();render();toast('Záznam uložen ✓');
+}
+
+function addDeparture(id){
+  const n=new Date(),dep=fmt(n),i=entries.findIndex(e=>e.id===id);
+  if(i<0)return;
+  const diff=calcMin(entries[i].arrival,dep);
+  if(diff<=0){toast('Odchod musí být po příchodu!');return;}
+  entries[i]={...entries[i],departure:dep,dur:fmtDur(diff),pending:false};
+  persist();render();toast('Odchod doplněn ✓');
+}
+
+function resetForm(){
+  st={arrival:null,departure:null,location:null};
+  ['arrival','departure'].forEach(t=>{document.getElementById('btn-'+t).classList.remove('set');document.getElementById('val-'+t).textContent='—';});
+  document.getElementById('loc-office').className='lbtn';
+  document.getElementById('loc-home').className='lbtn';
+  document.getElementById('dur-row').style.display='none';
+  updSave();
+}
+
+function persist(){try{localStorage.setItem('dochazka_v1',JSON.stringify(entries.slice(0,120)));}catch(e){}}
+function del(id){entries=entries.filter(e=>e.id!==id);if(editId===id)editId=null;persist();render();}
+function clearAll(){if(!entries.length)return;if(!confirm('Opravdu vymazat celou historii?'))return;entries=[];editId=null;persist();render();}
+function toggleEdit(id){editId=(editId===id)?null:id;render();}
+
+function setEditLoc(id,loc){
+  document.getElementById('elo-'+id).className='eloc-btn'+(loc==='office'?' sel':'');
+  document.getElementById('elh-'+id).className='eloc-btn'+(loc==='home'?' sel':'');
+}
+
+function saveEdit(id){
+  const a=document.getElementById('ea-'+id).value;
+  const dEl=document.getElementById('ed-'+id),d=dEl?dEl.value:'';
+  const loc=document.getElementById('elo-'+id).classList.contains('sel')?'office':'home';
+  if(!a){toast('Vyplň čas příchodu.');return;}
+  let dur=null,pending=true,dep=null;
+  if(d){
+    const diff=calcMin(a,d);
+    if(diff<=0){toast('Odchod musí být po příchodu!');return;}
+    dur=fmtDur(diff);pending=false;dep=d;
+  }
+  const i=entries.findIndex(e=>e.id===id);
+  if(i>=0)entries[i]={...entries[i],arrival:a,departure:dep,dur,loc,pending};
+  editId=null;persist();render();toast('Záznam upraven ✓');
+}
+
+function render(){
+  const el=document.getElementById('hist');
+  if(!entries.length){el.innerHTML='<div class="empty">Zatím žádné záznamy.</div>';return;}
+  el.innerHTML=entries.slice(0,90).map(e=>{
+    const ed=editId===e.id;
+    const timesStr=e.departure?`${e.arrival} – ${e.departure}`:`${e.arrival} – ?`;
+    const badge=e.pending
+      ?`<span class="eloc-badge p">čeká</span>`
+      :`<span class="eloc-badge t">${e.loc==='office'?'Kan.':'HO'}</span>`;
+    const pendingBanner=e.pending&&!ed?`<div class="pending-banner">
+      <span class="pb-icon">⏱</span>
+      <span>Odchod ještě nebyl zadán</span>
+      <button onclick="addDeparture(${e.id})">Doplnit teď</button>
+    </div>`:'';
+    const editPanel=ed?`<div class="epanel">
+      <div class="er"><label>Příchod</label><input type="time" id="ea-${e.id}" value="${e.arrival}"></div>
+      <div class="er"><label>Odchod</label><input type="time" id="ed-${e.id}" value="${e.departure||''}"></div>
+      <div class="eloc-row">
+        <button class="eloc-btn${e.loc==='office'?' sel':''}" id="elo-${e.id}" onclick="setEditLoc(${e.id},'office')">🏢 Kancelář</button>
+        <button class="eloc-btn${e.loc==='home'?' sel':''}" id="elh-${e.id}" onclick="setEditLoc(${e.id},'home')">🏠 Homeoffice</button>
+      </div>
+      <div class="ebtn-row">
+        <button class="esave" onclick="saveEdit(${e.id})">Uložit</button>
+        <button class="ecancel" onclick="toggleEdit(${e.id})">Zrušit</button>
+      </div>
+    </div>`:'';
+    return`<div class="entry${ed?' editing':e.pending?' pending':''}">
+      <div class="erow">
+        <span class="edate">${e.day}<br>${e.date}</span>
+        <span class="etimes">${timesStr}</span>
+        <span class="edur">${e.dur||''}</span>
+        ${badge}
+        <div class="eacts">
+          <button onclick="toggleEdit(${e.id})" aria-label="Upravit" class="${ed?'edit-active':''}">✏️</button>
+          <button class="del" onclick="del(${e.id})" aria-label="Smazat">✕</button>
+        </div>
+      </div>${pendingBanner}${editPanel}
+    </div>`;
+  }).join('');
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+init();
+
+// Service Worker registration
+if('serviceWorker' in navigator){
+  const swCode=`
+const CACHE='dochazka-v1';
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/']))));
+self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match('/')))));
+`;
+  const blob=new Blob([swCode],{type:'application/javascript'});
+  const url=URL.createObjectURL(blob);
+  navigator.serviceWorker.register(url).catch(()=>{});
+}
+
+// PWA manifest inject
+const manifest={
+  name:'Docházka',
+  short_name:'Docházka',
+  description:'Evidence pracovní doby',
+  start_url:'.',
+  display:'standalone',
+  background_color:'#F7F6F3',
+  theme_color:'#C8A450',
+  icons:[{src:generateIcon(),sizes:'192x192',type:'image/png'},{src:generateIcon(),sizes:'512x512',type:'image/png'}]
+};
+
+function generateIcon(){
+  const c=document.createElement('canvas');
+  c.width=192;c.height=192;
+  const ctx=c.getContext('2d');
+  const r=28;
+  ctx.beginPath();
+  ctx.moveTo(r,0);ctx.lineTo(192-r,0);ctx.quadraticCurveTo(192,0,192,r);
+  ctx.lineTo(192,192-r);ctx.quadraticCurveTo(192,192,192-r,192);
+  ctx.lineTo(r,192);ctx.quadraticCurveTo(0,192,0,192-r);
+  ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);
+  ctx.fillStyle='#C8A450';ctx.fill();
+  ctx.strokeStyle='#1A1A1A';ctx.lineWidth=8;ctx.lineCap='round';
+  ctx.beginPath();ctx.arc(96,96,60,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(96,96);ctx.lineTo(96,48);ctx.lineWidth=10;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(96,96);ctx.lineTo(132,116);ctx.lineWidth=8;ctx.stroke();
+  ctx.beginPath();ctx.arc(96,96,7,0,Math.PI*2);ctx.fillStyle='#1A1A1A';ctx.fill();
+  return c.toDataURL('image/png');
+}
+
+const iconData=generateIcon();
+document.getElementById('apple-icon').href=iconData;
+const mblob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+const murl=URL.createObjectURL(mblob);
+const ml=document.createElement('link');
+ml.rel='manifest';ml.href=murl;
+document.head.appendChild(ml);
+</script>
+</body>
+</html>
