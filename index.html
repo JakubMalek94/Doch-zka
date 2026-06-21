@@ -117,7 +117,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 
 /* calendar grid */
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
-.cal-day{height:84px;border-radius:8px;padding:5px 4px 4px;cursor:pointer;border:1px solid transparent;transition:all .12s;display:flex;flex-direction:column;background:var(--card);position:relative;overflow:hidden;}
+.cal-day{height:58px;border-radius:7px;padding:4px 3px 3px;cursor:pointer;border:1px solid transparent;transition:all .12s;display:flex;flex-direction:column;background:var(--card);position:relative;overflow:hidden;}
 .cal-day:active{transform:scale(.95);}
 .cal-day.empty{background:transparent;border-color:transparent;cursor:default;pointer-events:none;}
 .cal-day.today{border-color:var(--teal-border);border-width:2px;}
@@ -128,20 +128,20 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 .cal-day.has-note{background:#EFEDE6;border-color:#C8C5BC;}
 .cal-day.has-mixed-office{border-color:var(--gold-border);}
 .cal-day.has-mixed-home{border-color:var(--teal-border);}
-.cal-day .cd-num{font-size:13px;font-weight:600;color:var(--txt2);line-height:1;margin-bottom:3px;}
+.cal-day .cd-num{font-size:12px;font-weight:600;color:var(--txt2);line-height:1;margin-bottom:2px;}
 .cal-day.today .cd-num{color:var(--teal);font-weight:700;}
 .cal-day.weekend .cd-num,.cal-day.holiday .cd-num{color:#C0392B;}
 .cal-day.has-entry-office .cd-num,.cal-day.has-mixed-office .cd-num{color:var(--gold-text);}
 .cal-day.has-entry-home .cd-num,.cal-day.has-mixed-home .cd-num{color:var(--teal-text);}
-.cal-day.has-entry-office .cd-arr,.cal-day.has-entry-office .cd-dep,.cal-day.has-entry-office .cd-dur,
-.cal-day.has-mixed-office .cd-arr,.cal-day.has-mixed-office .cd-dep,.cal-day.has-mixed-office .cd-dur{color:var(--gold-text);}
-.cal-day.has-mixed-home .cd-arr,.cal-day.has-mixed-home .cd-dep,.cal-day.has-mixed-home .cd-dur{color:var(--teal-text);}
-.cal-day .cd-arr{font-family:var(--mono);font-size:9px;color:var(--teal-text);line-height:1.3;}
-.cal-day .cd-dep{font-family:var(--mono);font-size:9px;color:var(--teal-text);line-height:1.3;}
-.cal-day .cd-note{font-size:8.5px;color:#5A5A5A;line-height:1.25;margin-top:auto;}
-.cal-day .cd-hday{font-size:8px;color:#C0392B;line-height:1.2;margin-top:1px;}
-.cal-day .cd-dur{font-size:8px;color:var(--teal);margin-top:auto;font-family:var(--mono);}
+.cal-day.has-entry-office .cd-time,.cal-day.has-entry-office .cd-dur,
+.cal-day.has-mixed-office .cd-time,.cal-day.has-mixed-office .cd-dur{color:var(--gold-text);}
+.cal-day.has-mixed-home .cd-time,.cal-day.has-mixed-home .cd-dur{color:var(--teal-text);}
+.cal-day .cd-time{font-family:var(--mono);font-size:9px;color:var(--teal-text);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cal-day .cd-note{font-size:8px;color:#5A5A5A;line-height:1.2;margin-top:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cal-day .cd-hday{font-size:7.5px;color:#C0392B;line-height:1.15;margin-top:1px;}
+.cal-day .cd-dur{font-size:8px;color:var(--teal);margin-top:auto;font-family:var(--mono);font-weight:600;}
 .cal-day.has-mixed-office .cd-dur{color:var(--gold-text);}
+.cal-day.has-mixed-home .cd-dur{color:var(--teal-text);}
 
 /* month summary */
 .cal-summary{margin-top:12px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;display:flex;gap:0;}
@@ -685,17 +685,16 @@ function renderCalendar(){
     html+='<div class="'+cls+'"'+styleAttr+' onclick="openDay(\''+iso+'\')">';
     html+='<div class="cd-num">'+d+'</div>';
     if(entry){
-      html+='<div class="cd-arr">↪'+entry.arrival+'</div>';
-      html+='<div class="cd-dep">↩'+entry.departure+'</div>';
+      html+='<div class="cd-time">'+entry.arrival+'–'+entry.departure+'</div>';
       if(!note){
         const mins=calcMin(entry.arrival,entry.departure);
         if(mins>0)html+='<div class="cd-dur">'+fmtDur(mins)+'</div>';
       }
     }
     if(note){
-      const lbl=noteLabelsCal[note.type]||'Poznámka';
+      const lbl=noteLabelsCal[note.type]||'Pozn.';
       const hrs=note.exemptedHours?' '+note.exemptedHours+'h':'';
-      html+='<div class="cd-note">'+(noteIconsCal[note.type]||'📝')+' '+lbl+'<br>'+(hrs?hrs.trim():'')+'</div>';
+      html+='<div class="cd-note">'+(noteIconsCal[note.type]||'📝')+' '+lbl+hrs+'</div>';
     }
     if(isHoliday&&!entry&&!note){
       const hname=HOLIDAY_NAMES[mmdd]||'Svátek';
