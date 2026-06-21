@@ -1392,21 +1392,57 @@ self.addEventListener('message',e=>{
     });
   }).catch(()=>{});
 }
-function generateIcon(){
-  const c=document.createElement('canvas');c.width=192;c.height=192;
-  const ctx=c.getContext('2d'),r=28;
-  ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(192-r,0);ctx.quadraticCurveTo(192,0,192,r);ctx.lineTo(192,192-r);ctx.quadraticCurveTo(192,192,192-r,192);ctx.lineTo(r,192);ctx.quadraticCurveTo(0,192,0,192-r);ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);
-  ctx.fillStyle='#C8A450';ctx.fill();ctx.strokeStyle='#1A1A1A';ctx.lineWidth=8;ctx.lineCap='round';
-  ctx.beginPath();ctx.arc(96,96,60,0,Math.PI*2);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(96,96);ctx.lineTo(96,48);ctx.lineWidth=10;ctx.stroke();
-  ctx.beginPath();ctx.moveTo(96,96);ctx.lineTo(132,116);ctx.lineWidth=8;ctx.stroke();
-  ctx.beginPath();ctx.arc(96,96,7,0,Math.PI*2);ctx.fillStyle='#1A1A1A';ctx.fill();
+function generateIcon(size){
+  const c=document.createElement('canvas');c.width=size;c.height=size;
+  const ctx=c.getContext('2d'),r=size*0.1458; // proportional radius (28/192)
+  const s=size/192; // scale factor
+  ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(size-r,0);ctx.quadraticCurveTo(size,0,size,r);ctx.lineTo(size,size-r);ctx.quadraticCurveTo(size,size,size-r,size);ctx.lineTo(r,size);ctx.quadraticCurveTo(0,size,0,size-r);ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);
+  ctx.fillStyle='#C8A450';ctx.fill();ctx.strokeStyle='#1A1A1A';ctx.lineWidth=8*s;ctx.lineCap='round';
+  const cx=size/2, cy=size/2;
+  ctx.beginPath();ctx.arc(cx,cy,60*s,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-48*s);ctx.lineWidth=10*s;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+36*s,cy+20*s);ctx.lineWidth=8*s;ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,7*s,0,Math.PI*2);ctx.fillStyle='#1A1A1A';ctx.fill();
   return c.toDataURL('image/png');
 }
-const iconData=generateIcon();
-document.getElementById('apple-icon').href=iconData;
-const manifest={name:'Docházka',short_name:'Docházka',description:'Evidence pracovní doby',start_url:'.',display:'standalone',background_color:'#F7F6F3',theme_color:'#C8A450',icons:[{src:iconData,sizes:'192x192',type:'image/png'}]};
-const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:'application/json'}));document.head.appendChild(ml);
+const icon192=generateIcon(192);
+const icon512=generateIcon(512);
+const icon32=generateIcon(32);
+
+// Apple touch icon (iOS home screen)
+document.getElementById('apple-icon').href=icon192;
+
+// Favicon (desktop browser tab + Windows/macOS shortcut icon)
+const favicon=document.createElement('link');
+favicon.rel='icon';
+favicon.type='image/png';
+favicon.href=icon32;
+document.head.appendChild(favicon);
+
+// Shortcut icon fallback for older browsers
+const shortcutIcon=document.createElement('link');
+shortcutIcon.rel='shortcut icon';
+shortcutIcon.href=icon32;
+document.head.appendChild(shortcutIcon);
+
+// PWA manifest with multiple icon sizes (used by Android, Windows "Install app", Chrome desktop)
+const manifest={
+  name:'Docházka',
+  short_name:'Docházka',
+  description:'Evidence pracovní doby',
+  start_url:'.',
+  display:'standalone',
+  background_color:'#F7F6F3',
+  theme_color:'#C8A450',
+  icons:[
+    {src:icon192,sizes:'192x192',type:'image/png'},
+    {src:icon512,sizes:'512x512',type:'image/png'}
+  ]
+};
+const ml=document.createElement('link');
+ml.rel='manifest';
+ml.href=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:'application/json'}));
+document.head.appendChild(ml);
 </script>
 </body>
 </html>
