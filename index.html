@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Docházka">
 <meta name="theme-color" content="#C8A450">
@@ -60,7 +61,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 .tbtn .th{font-size:10px;color:var(--txt3);min-height:13px;}
 .time-edit{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;}
 .time-edit label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--txt3);white-space:nowrap;}
-.time-edit input[type=time]{flex:1;font-family:var(--mono);font-size:16px;padding:7px 10px;border:1px solid var(--gold-border);border-radius:8px;background:#fff;color:var(--txt);height:38px;}
+.time-edit input.time24{flex:1;font-family:var(--mono);font-size:16px;padding:7px 10px;border:1px solid var(--gold-border);border-radius:8px;background:#fff;color:var(--txt);height:38px;letter-spacing:1px;}
 .time-edit input[type=date]{flex:1;font-family:var(--font);font-size:15px;padding:7px 10px;border:1px solid var(--gold-border);border-radius:8px;background:#fff;color:var(--txt);height:38px;}
 .time-edit .clear-t{background:none;border:none;cursor:pointer;font-size:18px;color:var(--txt3);padding:4px;line-height:1;}
 .time-edit .clear-t:active{color:var(--red);}
@@ -96,7 +97,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 .abe-cancel{background:none;border:none;font-size:13px;color:var(--gold-text);cursor:pointer;font-family:var(--font);opacity:.7;}
 .abe-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .abe-row label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gold-text);width:62px;flex-shrink:0;}
-.abe-row input[type=time]{flex:1;font-family:var(--mono);font-size:16px;padding:7px 10px;border:1px solid var(--gold-border);border-radius:8px;background:#fff;color:var(--txt);height:38px;}
+.abe-row input.time24{flex:1;font-family:var(--mono);font-size:16px;padding:7px 10px;border:1px solid var(--gold-border);border-radius:8px;background:#fff;color:var(--txt);height:38px;letter-spacing:1px;}
 .abe-row input[type=date]{flex:1;font-family:var(--font);font-size:15px;padding:7px 10px;border:1px solid var(--gold-border);border-radius:8px;background:#fff;color:var(--txt);height:38px;}
 .abe-dur{font-size:12px;color:var(--gold-text);margin-bottom:10px;font-family:var(--mono);opacity:.8;}
 .abe-save{width:100%;padding:12px;border-radius:var(--rs);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);background:var(--gold-border);color:var(--gold-text);border:none;}
@@ -168,7 +169,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 .sf-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--txt3);margin-bottom:6px;}
 .sf-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .sf-row label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--txt3);width:58px;flex-shrink:0;}
-.sf-row input[type=time]{flex:1;font-family:var(--mono);font-size:15px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--txt);height:36px;}
+.sf-row input.time24{flex:1;font-family:var(--mono);font-size:15px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--txt);height:36px;letter-spacing:1px;}
 .sf-loc-row{display:flex;gap:6px;margin-bottom:14px;}
 .sf-loc-btn{flex:1;padding:9px 4px;border:1px solid var(--border);border-radius:8px;background:var(--bg);cursor:pointer;font-size:12px;font-weight:500;color:var(--txt2);display:flex;align-items:center;justify-content:center;gap:5px;font-family:var(--font);}
 .sf-loc-btn.sel{background:var(--teal-bg);border:2px solid var(--teal-border);color:var(--teal-text);font-weight:600;}
@@ -224,7 +225,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 .reminder-label.on{color:var(--teal-text);font-weight:600;}
 .reminder-detail{padding:0 12px 12px;display:flex;align-items:center;gap:8px;}
 .reminder-detail label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--txt3);white-space:nowrap;}
-.reminder-time-input{font-family:var(--mono);font-size:15px;padding:6px 10px;border:1px solid var(--teal-border);border-radius:8px;background:var(--bg);color:var(--txt);height:34px;flex:1;}
+.reminder-time-input.time24{font-family:var(--mono);font-size:15px;padding:6px 10px;border:1px solid var(--teal-border);border-radius:8px;background:var(--bg);color:var(--txt);height:34px;flex:1;letter-spacing:1px;}
 .reminder-note{font-size:11px;color:var(--txt3);margin-top:6px;padding:0 12px 10px;line-height:1.4;}
 
 /* NAME BUTTON */
@@ -253,7 +254,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
   .cal-day.has-entry-office{background:#2A2010;}
 .cal-day.has-entry-home{background:#0A2025;}
   .cal-day.has-note{background:#2A2A28;}
-  .time-edit input[type=time],.time-edit input[type=date],.abe-row input[type=time],.abe-row input[type=date],.sf-row input[type=time],.sf-note-input,.sf-loc-btn,.sf-hours-btn{background:#2C2C2C;color:#F0EDE8;}
+  .time-edit input.time24,.time-edit input[type=date],.abe-row input.time24,.abe-row input[type=date],.sf-row input.time24,.sf-note-input,.sf-loc-btn,.sf-hours-btn{background:#2C2C2C;color:#F0EDE8;}
 }
 </style>
 </head>
@@ -349,6 +350,30 @@ const HOLIDAY_NAMES={
   '12-25':'1. svátek vánoční','12-26':'2. svátek vánoční'
 };
 
+// ── CUSTOM 24H TIME INPUT (replaces native <input type=time> to avoid OS-dependent 12h/AM-PM formatting) ──
+// Auto-inserts ":" after 2 digits, strips non-digits, caps at HH:MM, clamps to valid ranges on blur.
+function onTimeMaskInput(el){
+  let v=el.value.replace(/[^0-9]/g,'');
+  if(v.length>4) v=v.slice(0,4);
+  if(v.length>=3){
+    v=v.slice(0,2)+':'+v.slice(2);
+  }
+  el.value=v;
+}
+// Validates/clamps a HH:MM string on blur; returns normalized "HH:MM" or '' if invalid/empty.
+function normalizeTime24(raw){
+  if(!raw) return '';
+  const digits=raw.replace(/[^0-9]/g,'');
+  if(digits.length<3) return ''; // incomplete entry like "8" or "08"
+  let hh=parseInt(digits.slice(0,2),10);
+  let mm=parseInt(digits.slice(2,4)||'0',10);
+  if(isNaN(hh)||isNaN(mm)) return '';
+  hh=Math.max(0,Math.min(23,hh));
+  mm=Math.max(0,Math.min(59,mm));
+  return hh.toString().padStart(2,'0')+':'+mm.toString().padStart(2,'0');
+}
+
+
 // ── STATE ──
 let active=null,editId=null;
 let st={arrival:null,arrivalDate:null,departure:null,departureDate:null,location:null};
@@ -386,7 +411,13 @@ function fmtOvertime(m){
   const h=Math.floor(abs/60),r=abs%60;
   return sign+(h>0?h+'h':'')+(r>0?r+'m':'')+(h===0&&r===0?'0h':'');
 }
-function calcMin(a,d){if(!a||!d)return 0;const[ah,am]=a.split(':').map(Number),[dh,dm]=d.split(':').map(Number);return(dh*60+dm)-(ah*60+am);}
+function calcMin(a,d){
+  if(!a||!d)return 0;
+  const an=normalizeTime24(a), dn=normalizeTime24(d);
+  if(!an||!dn)return 0;
+  const[ah,am]=an.split(':').map(Number),[dh,dm]=dn.split(':').map(Number);
+  return(dh*60+dm)-(ah*60+am);
+}
 function nowStr(){return fmt(new Date());}
 function toIso(d){return d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0')+'-'+d.getDate().toString().padStart(2,'0');}
 function isoToDate(iso){const[y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d);}
@@ -424,12 +455,12 @@ function renderHome(){
   html+='</div>';
   if(st.arrival){
     const av=st.arrivalDate||toIso(new Date());
-    html+='<div class="time-edit"><label>⏰ Příchod</label><input type="time" id="edit-arrival" value="'+st.arrival+'" oninput="onEditTime(\'arrival\')"><button class="clear-t" onclick="clearTime(\'arrival\')">✕</button></div>';
+    html+='<div class="time-edit"><label>⏰ Příchod</label><input type="text" inputmode="numeric" maxlength="5" placeholder="HH:MM" class="time24" id="edit-arrival" value="'+st.arrival+'" oninput="onTimeMaskInput(this);onEditTime(\'arrival\')" onblur="onEditTime(\'arrival\')"><button class="clear-t" onclick="clearTime(\'arrival\')">✕</button></div>';
     html+='<div class="time-edit"><label>📅 Datum</label><input type="date" id="edit-arrival-date" value="'+av+'" oninput="onEditDate(\'arrival\')"></div>';
   }
   if(st.departure&&!active){
     const dv=st.departureDate||toIso(new Date());
-    html+='<div class="time-edit"><label>⏰ Odchod</label><input type="time" id="edit-departure" value="'+st.departure+'" oninput="onEditTime(\'departure\')"><button class="clear-t" onclick="clearTime(\'departure\')">✕</button></div>';
+    html+='<div class="time-edit"><label>⏰ Odchod</label><input type="text" inputmode="numeric" maxlength="5" placeholder="HH:MM" class="time24" id="edit-departure" value="'+st.departure+'" oninput="onTimeMaskInput(this);onEditTime(\'departure\')" onblur="onEditTime(\'departure\')"><button class="clear-t" onclick="clearTime(\'departure\')">✕</button></div>';
     html+='<div class="time-edit"><label>📅 Datum</label><input type="date" id="edit-departure-date" value="'+dv+'" oninput="onEditDate(\'departure\')"></div>';
   }
   if(st.arrival&&st.departure&&!active){const diff=calcMin(st.arrival,st.departure);if(diff>0)html+='<div class="dur-row"><span class="dur-lbl">Odpracováno</span><span class="dur-v">'+fmtDurLong(diff)+'</span></div>';}
@@ -450,7 +481,7 @@ function renderHome(){
       const dv=st.departure||nowStr(),ddv=st.departureDate||toIso(new Date());
       const diff=calcMin(active.arrival,dv);
       html+='<div class="active-bar-expanded"><div class="abe-header"><div class="abe-dot"></div><span class="abe-label">Zadat odchod (příchod: '+active.arrival+')</span><button class="abe-cancel" onclick="collapseDep()">Zrušit</button></div>';
-      html+='<div class="abe-row"><label>⏰ Čas</label><input type="time" id="dep-input" value="'+dv+'" oninput="onDepInput()"></div>';
+      html+='<div class="abe-row"><label>⏰ Čas</label><input type="text" inputmode="numeric" maxlength="5" placeholder="HH:MM" class="time24" id="dep-input" value="'+dv+'" oninput="onTimeMaskInput(this);onDepInput()" onblur="onDepInput()"></div>';
       html+='<div class="abe-row"><label>📅 Datum</label><input type="date" id="dep-date-input" value="'+ddv+'" oninput="onDepDateInput()"></div>';
       if(diff>0)html+='<div class="abe-dur">Odpracováno: '+fmtDurLong(diff)+'</div>';
       html+='<button class="abe-save" onclick="confirmDeparture()">Uložit odchod</button></div>';
@@ -464,12 +495,25 @@ function tapTime(type){
   renderHome();
   setTimeout(()=>{const el=document.getElementById('edit-'+type);if(el)el.focus();},50);
 }
-function onEditTime(type){const el=document.getElementById('edit-'+type);if(el)st[type]=el.value;}
+function onEditTime(type){
+  const el=document.getElementById('edit-'+type);
+  if(!el)return;
+  // During typing (oninput) keep raw partial value for live display; on blur normalize fully.
+  if(document.activeElement===el){
+    st[type]=el.value;
+  } else {
+    const norm=normalizeTime24(el.value);
+    st[type]=norm;
+    el.value=norm;
+    renderHome();
+  }
+}
 function onEditDate(type){const el=document.getElementById('edit-'+type+'-date');if(el)st[type+'Date']=el.value;}
 function clearTime(type){st[type]=null;st[type+'Date']=null;renderHome();}
 function setLoc(l){st.location=l;renderHome();}
 
 function saveArrival(){
+  st.arrival=normalizeTime24(st.arrival);
   if(!st.arrival||!st.location){toast('Vyplň příchod a místo.');return;}
   if(active){toast('Nejdřív dokonči předchozí záznam.');return;}
   const iso=st.arrivalDate||toIso(new Date());
@@ -479,6 +523,8 @@ function saveArrival(){
   depExpanded=false;persist();renderHome();toast('Příchod uložen ✓');
 }
 function saveEntry(){
+  st.arrival=normalizeTime24(st.arrival);
+  st.departure=normalizeTime24(st.departure);
   if(!st.arrival||!st.departure||!st.location){toast('Vyplň příchod, odchod a místo.');return;}
   const diff=calcMin(st.arrival,st.departure);
   if(diff<=0){toast('Odchod musí být po příchodu!');return;}
@@ -495,12 +541,23 @@ function expandDep(){
   renderHome();setTimeout(()=>{const el=document.getElementById('dep-input');if(el)el.focus();},50);
 }
 function collapseDep(){depExpanded=false;st.departure=null;st.departureDate=null;renderHome();}
-function onDepInput(){const el=document.getElementById('dep-input');if(el){st.departure=el.value;renderHome();}}
+function onDepInput(){
+  const el=document.getElementById('dep-input');
+  if(!el)return;
+  if(document.activeElement===el){
+    st.departure=el.value;
+  } else {
+    const norm=normalizeTime24(el.value);
+    st.departure=norm;
+    el.value=norm;
+    renderHome();
+  }
+}
 function onDepDateInput(){const el=document.getElementById('dep-date-input');if(el)st.departureDate=el.value;}
 function confirmDeparture(){
   const el=document.getElementById('dep-input');
-  const dep=el?el.value:(st.departure||nowStr());
-  if(!dep){toast('Zadej čas odchodu.');return;}
+  const dep=normalizeTime24(el?el.value:(st.departure||nowStr()));
+  if(!dep){toast('Zadej čas odchodu (HH:MM).');return;}
   const diff=calcMin(active.arrival,dep);
   if(diff<=0){toast('Odchod musí být po příchodu!');return;}
   const iso=st.departureDate||active.isoDate||toIso(new Date());
@@ -761,7 +818,7 @@ function renderCalendar(){
   if(reminderOn){
     html+='<div class="reminder-detail">';
     html+='<label>⏰ Čas</label>';
-    html+='<input type="time" class="reminder-time-input" id="reminder-time" value="'+rTime+'" onchange="saveReminderTime()">';
+    html+='<input type="text" inputmode="numeric" maxlength="5" placeholder="HH:MM" class="reminder-time-input time24" id="reminder-time" value="'+rTime+'" oninput="onTimeMaskInput(this)" onblur="saveReminderTime()">';
     html+='</div>';
     html+='<div class="reminder-note">Oznámení přijde '+reminderHour+':'+reminderMin+' ve správný den. Appka musí být nainstalována na ploše.</div>';
   }
@@ -849,8 +906,8 @@ function renderSheet(){
 
   // work times
   html+='<div class="sf-label">Pracovní doba</div>';
-  html+='<div class="sf-row"><label>Příchod</label><input type="time" id="sf-arr" value="'+(entry?entry.arrival:'')+'" placeholder="--:--"></div>';
-  html+='<div class="sf-row"><label>Odchod</label><input type="time" id="sf-dep" value="'+(entry?entry.departure:'')+'" placeholder="--:--" oninput="updateSheetDur()"></div>';
+  html+='<div class="sf-row"><label>Příchod</label><input type="text" inputmode="numeric" maxlength="5" placeholder="HH:MM" class="time24" id="sf-arr" value="'+(entry?entry.arrival:'')+'" oninput="onTimeMaskInput(this);updateSheetDur()"></div>';
+  html+='<div class="sf-row"><label>Odchod</label><input type="text" inputmode="numeric" maxlength="5" placeholder="HH:MM" class="time24" id="sf-dep" value="'+(entry?entry.departure:'')+'" oninput="onTimeMaskInput(this);updateSheetDur()"></div>';
   const mins=entry?calcMin(entry.arrival,entry.departure):0;
   html+='<div class="sf-dur" id="sf-dur">'+(mins>0?'Odpracováno: '+fmtDurLong(mins):'')+'</div>';
 
@@ -947,11 +1004,17 @@ function changeHours(delta){
 }
 
 function saveDay(){
-  const arr=document.getElementById('sf-arr').value;
-  const dep=document.getElementById('sf-dep').value;
+  const arr=normalizeTime24(document.getElementById('sf-arr').value);
+  const dep=normalizeTime24(document.getElementById('sf-dep').value);
   const loc=document.getElementById('sfloc-office').classList.contains('sel')?'office':'home';
   const noteText=document.getElementById('sf-note-text').value.trim();
   const noteType=_selectedNoteType||notes.find(n=>n.isoDate===sheetIso)?.type||'';
+
+  // Warn if only one time field is filled
+  if((arr&&!dep)||(!arr&&dep)){
+    toast('Zkontroluj čas — chybí příchod nebo odchod (formát HH:MM).');
+    return;
+  }
 
   // save/update work entry
   if(arr&&dep){
@@ -962,7 +1025,7 @@ function saveDay(){
     const rec={id:existing>=0?entries[existing].id:Date.now(),isoDate:sheetIso,date:lbl.date,day:lbl.day,arrival:arr,departure:dep,dur:fmtDur(diff),loc};
     if(existing>=0) entries[existing]=rec; else entries.unshift(rec);
   } else {
-    // remove entry if times cleared
+    // both empty — remove entry if times cleared intentionally
     entries=entries.filter(e=>e.isoDate!==sheetIso);
   }
 
@@ -1254,7 +1317,9 @@ function toggleReminder(){
 function saveReminderTime(){
   const el=document.getElementById('reminder-time');
   if(!el)return;
-  const parts=el.value.split(':');
+  const norm=normalizeTime24(el.value)||'09:00';
+  el.value=norm;
+  const parts=norm.split(':');
   reminderHour=parts[0]||'09';
   reminderMin=parts[1]||'00';
   persist();
