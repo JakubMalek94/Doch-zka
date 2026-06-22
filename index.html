@@ -297,7 +297,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:10
 <!-- TAB BAR -->
 <div class="tabbar">
   <button class="tab active" id="tab-home" onclick="showTab('home')">
-    <span class="tab-icon">🗓️</span>
+    <span class="tab-icon">⏰</span>
     <span class="tab-label">Dnes</span>
   </button>
   <button class="tab" id="tab-history" onclick="showTab('history')">
@@ -605,15 +605,23 @@ function fmtVacHours(h){
   return s;
 }
 
-// Auto-carry-over on new year
+// Auto-carry-over on new year — only carries over if the previous year actually has
+// real vacation data (vacation notes or an explicitly set carryover/base). Otherwise
+// defaults to 0 carryover, since assuming a full unused allowance would double-count
+// the base days (25 base + wrongly-carried 25 = 50).
 (function autoCarryOver(){
   const today=new Date();
   const thisYear=today.getFullYear();
   const vThis=vacationData[thisYear]||{};
   if(!vThis.carryoverSet){
-    const remH=calcVacationRemaining(thisYear-1);
-    const remDays=remH>=0?Math.floor(remH/8):Math.ceil(remH/8);
-    const remHours=remH%8;
+    const lastYear=thisYear-1;
+    const hasLastYearData = !!vacationData[lastYear] || notes.some(n=>n.type==='vacation' && n.isoDate && n.isoDate.startsWith(lastYear+'-'));
+    let remDays=0, remHours=0;
+    if(hasLastYearData){
+      const remH=calcVacationRemaining(lastYear);
+      remDays=remH>=0?Math.floor(remH/8):Math.ceil(remH/8);
+      remHours=remH%8;
+    }
     vacationData[thisYear]={
       carryoverDays:remDays,
       carryoverHours:remHours,
